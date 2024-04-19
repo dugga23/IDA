@@ -5,13 +5,11 @@ const port= process.env.PORT|| 4040;
 const cors = require('cors');
 const mongoose= require('mongoose');
 const config = require('./DB');
-//const Router= express.Router();
-//const jwtmiddleware= require('./jwt');
+
 
 const signupRouter = require('./route/signup.route');
 const loginRouter= require('./route/login.route');
 const otpRouter=require('./route/otp.route');
-const verifyotpRouter= require('./route/verifyotp.route');
 const profileRouter= require('./route/profile.route');
 const updateRouter= require('./route/update.route');
 const deleteRouter= require('./route/delete.route');
@@ -28,6 +26,7 @@ const postcreateRouter= require('./route/postcreate.route');
 const languageRouter= require('./route/language.route');
 //const logoutRouter= require('./route/logout.route');
 const bioRouter=require('./route/bio.route');
+const jwtmiddleware = require('./middleware/jwtmiddleware');
 
 
 app.use(cors());
@@ -38,9 +37,9 @@ app.use('/uploads', express.static('uploads'));
 
 app.use('/signup', signupRouter);
 app.use('/login',loginRouter);
-app.use('/otp',otpRouter);
-app.use('/verifyotp',verifyotpRouter);
-app.use('/profile',  profileRouter);
+app.use('/',otpRouter);
+
+app.use('/profile',jwtmiddleware,  profileRouter);
 app.use('/update',updateRouter);
 app.use('/delete',deleteRouter);
 app.use('/',likedislikeRouter);
