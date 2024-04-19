@@ -4,7 +4,7 @@ const Router = express.Router();
 const bodyParser = require('body-parser');
 const profilecontroler= require('../controler/profile');
 
-//const jwtmiddleware= require('../jwt');
+//const jwtmiddleware= require('../middleware/jwtmiddleware');
 
 const app= express();
 

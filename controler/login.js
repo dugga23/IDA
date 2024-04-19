@@ -34,3 +34,9 @@ exports.login = async (req, res) => {
         res.status(500).json({ error: 'Login failed' });
     }
 };
+
+
+exports.logout=async(req,res)=>{
+   // const token= req.headers.authorization;
+res.json({message:'logged out successfully'});
+}

@@ -24,7 +24,7 @@ const photoUploadRouter= require('./route/photoupload.route');
 const searchRouter= require('./route/search.route');
 const postcreateRouter= require('./route/postcreate.route');
 const languageRouter= require('./route/language.route');
-//const logoutRouter= require('./route/logout.route');
+const logoutRouter= require('./route/logout.route');
 const bioRouter=require('./route/bio.route');
 const jwtmiddleware = require('./middleware/jwtmiddleware');
 
@@ -38,23 +38,22 @@ app.use('/uploads', express.static('uploads'));
 app.use('/signup', signupRouter);
 app.use('/login',loginRouter);
 app.use('/',otpRouter);
-
 app.use('/profile',jwtmiddleware,  profileRouter);
-app.use('/update',updateRouter);
-app.use('/delete',deleteRouter);
-app.use('/',likedislikeRouter);
-app.use('/',blockreportRouter);
-app.use('/streak',streakRouter);
-app.use('/status',statusRouter);
-app.use('/change-password',changepassRouter);
-app.use('/forget-password',forgetpassRouter);
-app.use('/', messageReqRouter);
-app.use('/',photoUploadRouter);
-app.use('/',searchRouter);
-app.use('/',postcreateRouter);
-app.use('/',languageRouter);
-app.use('/bio',bioRouter);
-//app.use('/logout',logoutRouter);
+app.use('/update',jwtmiddleware, updateRouter);
+app.use('/delete',jwtmiddleware,deleteRouter);
+app.use('/',jwtmiddleware,likedislikeRouter);
+app.use('/',jwtmiddleware,blockreportRouter);
+app.use('/streak',jwtmiddleware,streakRouter);
+app.use('/status',jwtmiddleware,statusRouter);
+app.use('/change-password',jwtmiddleware,changepassRouter);
+app.use('/forget-password',jwtmiddleware,forgetpassRouter);
+app.use('/',jwtmiddleware, messageReqRouter);
+app.use('/',jwtmiddleware,photoUploadRouter);
+app.use('/',jwtmiddleware,searchRouter);
+app.use('/',jwtmiddleware,postcreateRouter);
+app.use('/',jwtmiddleware,languageRouter);
+app.use('/bio',jwtmiddleware,bioRouter);
+app.use('/logout',logoutRouter);
 
 
 mongoose.Promise = global.Promise;

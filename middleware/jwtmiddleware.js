@@ -1,29 +1,29 @@
 const jwt = require('jsonwebtoken');
-const dotenv= require('dotenv');
-const  jwtmodule=require('../module/jwt.module');
+const dotenv = require('dotenv');
 dotenv.config();
 
- const secretkey=process.env.secret_key;
+const secretKey = process.env.secret_key;
 
 module.exports = (req, res, next) => {
     // Get token from headers
     const token = req.headers.authorization;
-
-
     // Check if token exists
     if (!token) {
         return res.status(401).json({ message: 'No token provided' });
     }
-    console.log(token);
-    // Verify token
-    const userId=jwtmodule.verifyToken(token);
-    if(userId)  {
+    
+    // Extract token without the "Bearer" prefix
+    const tokenValue = token.split(' ')[1];
+  
+    
+       // Verify token
+       jwt.verify(tokenValue, secretKey, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({ message: 'Failed to authenticate token' });
+        }
+        // Token is valid, save decoded data to request object
+        req.username = decoded.userId; // Assuming your JWT payload contains userId
         next();
-        return res.status(200).json({ message: userId });
-
-    }
-    else{
-        return res.status(404).json({ message: 'error' });
-
-}
+    });
+    
 };
