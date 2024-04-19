@@ -1,6 +1,8 @@
 const mongoose= require ('mongoose');
+const dotenv=require('dotenv');
+dotenv.config();
 
-const DB_URI = 'mongodb+srv://1811duggu:f2zmOipSW4Rp1x4i@cluster0.ah2anor.mongodb.net/IDA';
+const DB_URI = process.env.DB_URL;
 
 module.exports={
     DB: DB_URI
