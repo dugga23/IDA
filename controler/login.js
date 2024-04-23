@@ -18,7 +18,7 @@ exports.login = async (req, res) => {
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {
-            console.log("Authentication failed");
+            console.log("password not match");
             return res.status(401).json({ error: 'Authentication failed' });
         }
 
