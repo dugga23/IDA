@@ -1,6 +1,6 @@
 const signup = require('../module/signup.module');
 const bcrypt = require('bcrypt');
-const otpController = require('../controllers/otpController'); // Import the OTP controller
+const otpController = require('../controler/otp'); // Import the OTP controller
 
 exports.forgotpassword = async (req, res) => {
     const userId = req.params.userId;
