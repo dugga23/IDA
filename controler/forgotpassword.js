@@ -1,12 +1,12 @@
 const signup = require('../module/signup.module');
 const bcrypt = require('bcrypt');
-const otpController = require('../controler/otp'); // Import the OTP controller
+// Import the OTP controller
 
 exports.forgotpassword = async (req, res) => {
     const userId = req.params.userId;
     const newPassword = req.body.newPassword;
     const confirmPassword = req.body.confirmPassword;
-    const email = req.body.email; // Assuming you're passing email in the request body
+  // Assuming you're passing email in the request body
 
     // Validate input
     if (!newPassword || !confirmPassword) {
@@ -25,10 +25,7 @@ exports.forgotpassword = async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // Generate OTP and send to user's email
-        await otpController.genrateotp({ body: { email } }, res); // Call OTP generation function
-
-        // Hash new password and update in the database
+      
         const hashedPassword = await bcrypt.hash(newPassword, 10);
         await signup.updateOne({ _id: userId }, { $set: { password: hashedPassword } });
 
