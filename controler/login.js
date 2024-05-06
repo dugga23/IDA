@@ -43,6 +43,9 @@ exports.login = async (req, res) => {
                 email: user.email,
                 firstname: user.firstname,
                 lastname: user.lastname,
+                number:user.number,
+                gender:user.gender,
+                bio:user.bio
                 // Add other required fields from the signup data
             }
         });
